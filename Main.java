@@ -52,7 +52,7 @@ public class Main {
             String again = scanner.next();
 
             if (!again.equalsIgnoreCase("y")) {
-                System.out.println("Goodbye!!!");
+                System.out.println("Goodbye, See you soon !!!");
                 break;
             }
         }
