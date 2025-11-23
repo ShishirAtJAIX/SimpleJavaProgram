@@ -48,11 +48,11 @@ public class Main {
             System.out.println("Square root of " + x + ": " + squareRoot(x));
             System.out.println("Square root of " + y + ": " + squareRoot(y));
 
-            System.out.print("Do another calculation? (y/n): ");
+            System.out.print("Do another calculation? (Y/N): ");
             String again = scanner.next();
 
             if (!again.equalsIgnoreCase("y")) {
-                System.out.println("Goodbye!");
+                System.out.println("Goodbye!!!");
                 break;
             }
         }
