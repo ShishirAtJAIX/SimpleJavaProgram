@@ -22,6 +22,14 @@ public class Main {
         return (double) a / b;
     }
 
+    public static int modulo(int a, int b) {
+        if (b == 0) {
+            System.out.println("Error: Cannot modulo by zero!");
+            return 0;
+        }
+        return a % b;
+    }
+
     public static double squareRoot(int a) {
         if (a < 0) {
             System.out.println("Error: Cannot take square root of a negative number!");
@@ -40,7 +48,8 @@ public class Main {
             System.out.println("3. Multiply");
             System.out.println("4. Divide");
             System.out.println("5. Square Root");
-            System.out.println("6. Exit");
+            System.out.println("6. Modulo");  //Added Modulo function to the Calculator
+            System.out.println("7. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -86,6 +95,14 @@ public class Main {
                     break;
 
                 case 6:
+                    System.out.print("Enter first number: ");
+                    x = scanner.nextInt();
+                    System.out.print("Enter second number: ");
+                    y = scanner.nextInt();
+                    System.out.println("Result: " + modulo(x, y));
+                    break;
+
+                case 7:
                     System.out.println("Goodbye!");
                     scanner.close();
                     return;
@@ -94,7 +111,5 @@ public class Main {
                     System.out.println("Invalid option! Please choose again.");
             }
         }
-
-        scanner.close();
     }
 }
