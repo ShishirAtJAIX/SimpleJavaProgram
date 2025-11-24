@@ -94,5 +94,7 @@ public class Main {
                     System.out.println("Invalid option! Please choose again.");
             }
         }
+
+        scanner.close();
     }
 }
