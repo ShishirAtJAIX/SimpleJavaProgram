@@ -50,20 +50,23 @@ public class Main {
         return Math.sqrt(a);
     }
 
-    // Helper method for integer input
-    public static int getInt(Scanner scanner, String text) {
-        System.out.print(YELLOW + text + RESET);
+    // Helper method for integer input (safe)
+    public static int getInt(Scanner scanner, String prompt) {
+        System.out.print(YELLOW + prompt + RESET);
         while (!scanner.hasNextInt()) {
             System.out.print(RED + "Invalid number! Try again: " + RESET);
-            scanner.next();
+            scanner.next(); // discard invalid token
         }
-        return scanner.nextInt();
+        int value = scanner.nextInt();
+        scanner.nextLine(); // consume end-of-line
+        return value;
     }
 
+    // MAIN
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(BANNER); // Display banner at start
+        System.out.println(BANNER); // Display banner once at start
 
         while (true) {
 
@@ -84,15 +87,7 @@ public class Main {
                     RESET
             );
 
-            // User choice
-            System.out.print(YELLOW + "Select an option (1–7): " + RESET);
-
-            while (!scanner.hasNextInt()) {
-                System.out.print(RED + "Invalid input! Enter a number (1–7): " + RESET);
-                scanner.next();
-            }
-
-            int choice = scanner.nextInt();
+            int choice = getInt(scanner, "Select an option (1–7): ");
             System.out.println();
 
             int x, y;
@@ -102,3 +97,47 @@ public class Main {
                     x = getInt(scanner, "Enter first number: ");
                     y = getInt(scanner, "Enter second number: ");
                     System.out.println(GREEN + "Result = " + add(x, y) + RESET);
+                    break;
+
+                case 2: // Subtraction
+                    x = getInt(scanner, "Enter first number: ");
+                    y = getInt(scanner, "Enter second number: ");
+                    System.out.println(GREEN + "Result = " + subtract(x, y) + RESET);
+                    break;
+
+                case 3: // Multiplication
+                    x = getInt(scanner, "Enter first number: ");
+                    y = getInt(scanner, "Enter second number: ");
+                    System.out.println(GREEN + "Result = " + multiply(x, y) + RESET);
+                    break;
+
+                case 4: // Division
+                    x = getInt(scanner, "Enter numerator: ");
+                    y = getInt(scanner, "Enter denominator: ");
+                    System.out.println(GREEN + "Result = " + divide(x, y) + RESET);
+                    break;
+
+                case 5: // Square Root
+                    x = getInt(scanner, "Enter the number: ");
+                    System.out.println(GREEN + "Square Root = " + squareRoot(x) + RESET);
+                    break;
+
+                case 6: // Modulo
+                    x = getInt(scanner, "Enter first number: ");
+                    y = getInt(scanner, "Enter second number: ");
+                    System.out.println(GREEN + "Result = " + modulo(x, y) + RESET);
+                    break;
+
+                case 7: // Exit
+                    System.out.println(CYAN + "Goodbye! Thanks for using the calculator!" + RESET);
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println(RED + "Invalid option! Please choose between 1 and 7." + RESET);
+            }
+
+            System.out.println(); // blank line before next iteration
+        }
+    }
+}
