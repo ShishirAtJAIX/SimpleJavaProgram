@@ -86,7 +86,7 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.println("Goodbye!");
+                    System.out.println("Goodbye! BUG FIX #3");
                     scanner.close();
                     return;
 
