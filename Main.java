@@ -1,20 +1,21 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 
     // ANSI color codes
-    public static final String RESET = "\u001B[0m";
-    public static final String CYAN = "\u001B[36m";
-    public static final String GREEN = "\u001B[32m";
+    public static final String RESET  = "\u001B[0m";
+    public static final String CYAN   = "\u001B[36m";
+    public static final String GREEN  = "\u001B[32m";
     public static final String YELLOW = "\u001B[33m";
-    public static final String RED = "\u001B[31m";
-    public static final String BLUE = "\u001B[34m";
+    public static final String RED    = "\u001B[31m";
+    public static final String BLUE   = "\u001B[34m";
     public static final String PURPLE = "\u001B[35m";
 
-    // Math functions
-    public static int add(int a, int b) { return a + b; }
-    public static int subtract(int a, int b) { return a - b; }
-    public static int multiply(int a, int b) { return a * b; }
+    // --- Math functions ---
+    public static int add(int a, int b)        { return a + b; }
+    public static int subtract(int a, int b)   { return a - b; }
+    public static int multiply(int a, int b)   { return a * b; }
 
     public static double divide(int a, int b) {
         if (b == 0) {
@@ -40,10 +41,42 @@ public class Main {
         return Math.sqrt(a);
     }
 
-    // Helper input method
-    public static int getInt(Scanner scanner, String text) {
-        System.out.print(YELLOW + text + RESET);
-        return scanner.nextInt();
+    // --- Input helper (safe integer read) ---
+    public static int getInt(Scanner scanner, String prompt) {
+        while (true) {
+            System.out.print(YELLOW + prompt + RESET);
+
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println(RED + "Invalid input! Please enter a number." + RESET);
+                scanner.next(); // Clear invalid input
+            }
+        }
+    }
+
+    // --- Get two inputs cleanly ---
+    public static int[] getTwoNumbers(Scanner scanner) {
+        int x = getInt(scanner, "Enter first number: ");
+        int y = getInt(scanner, "Enter second number: ");
+        return new int[]{x, y};
+    }
+
+    // --- Menu UI ---
+    public static void printMenu() {
+        System.out.println(BLUE + "\n========================================");
+        System.out.println(PURPLE + "           ★ CALCULATOR MENU ★" + RESET);
+        System.out.println(BLUE + "========================================" + RESET);
+
+        System.out.println(GREEN +
+           " 1. Addition\n" +
+           " 2. Subtraction\n" +
+           " 3. Multiplication\n" +
+           " 4. Division\n" +
+           " 5. Square Root\n" +
+           " 6. Modulo\n" +
+           " 7. Exit\n" + RESET
+        );
     }
 
     public static void main(String[] args) {
@@ -51,62 +84,46 @@ public class Main {
 
         while (true) {
 
-            // --- UI Header ---
-            System.out.println(BLUE + "\n========================================");
-            System.out.println(PURPLE + "           ★ CALCULATOR MENU ★" + RESET);
-            System.out.println(BLUE + "========================================" + RESET);
-
-            // --- Menu Options ---
-            System.out.println(GREEN + " 1. Addition");
-            System.out.println(" 2. Subtraction");
-            System.out.println(" 3. Multiplication");
-            System.out.println(" 4. Division");
-            System.out.println(" 5. Square Root");
-            System.out.println(" 6. Modulo");
-            System.out.println(" 7. Exit\n" + RESET);
-
-            // --- User choice ---
-            System.out.print(YELLOW + "Select an option (1–7): " + RESET);
-            int choice = scanner.nextInt();
+            printMenu();
+            int choice = getInt(scanner, "Select an option (1–7): ");
             System.out.println();
 
-            int x, y;
-
             switch (choice) {
-                case 1:
-                    x = getInt(scanner, "Enter first number: ");
-                    y = getInt(scanner, "Enter second number: ");
-                    System.out.println(GREEN + "Result = " + add(x, y) + RESET);
+                case 1: {
+                    int[] num = getTwoNumbers(scanner);
+                    System.out.println(GREEN + "Result = " + add(num[0], num[1]) + RESET);
                     break;
+                }
 
-                case 2:
-                    x = getInt(scanner, "Enter first number: ");
-                    y = getInt(scanner, "Enter second number: ");
-                    System.out.println(GREEN + "Result = " + subtract(x, y) + RESET);
+                case 2: {
+                    int[] num = getTwoNumbers(scanner);
+                    System.out.println(GREEN + "Result = " + subtract(num[0], num[1]) + RESET);
                     break;
+                }
 
-                case 3:
-                    x = getInt(scanner, "Enter first number: ");
-                    y = getInt(scanner, "Enter second number: ");
-                    System.out.println(GREEN + "Result = " + multiply(x, y) + RESET);
+                case 3: {
+                    int[] num = getTwoNumbers(scanner);
+                    System.out.println(GREEN + "Result = " + multiply(num[0], num[1]) + RESET);
                     break;
+                }
 
-                case 4:
-                    x = getInt(scanner, "Enter first number: ");
-                    y = getInt(scanner, "Enter second number: ");
-                    System.out.println(GREEN + "Result = " + divide(x, y) + RESET);
+                case 4: {
+                    int[] num = getTwoNumbers(scanner);
+                    System.out.println(GREEN + "Result = " + divide(num[0], num[1]) + RESET);
                     break;
+                }
 
-                case 5:
-                    x = getInt(scanner, "Enter the number: ");
+                case 5: {
+                    int x = getInt(scanner, "Enter the number: ");
                     System.out.println(GREEN + "Square Root = " + squareRoot(x) + RESET);
                     break;
+                }
 
-                case 6:
-                    x = getInt(scanner, "Enter first number: ");
-                    y = getInt(scanner, "Enter second number: ");
-                    System.out.println(GREEN + "Result = " + modulo(x, y) + RESET);
+                case 6: {
+                    int[] num = getTwoNumbers(scanner);
+                    System.out.println(GREEN + "Result = " + modulo(num[0], num[1]) + RESET);
                     break;
+                }
 
                 case 7:
                     System.out.println(CYAN + "Goodbye! Thanks for using the calculator!" + RESET);
